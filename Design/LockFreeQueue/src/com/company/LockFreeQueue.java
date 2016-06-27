@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class LockFreeQueue<T> {
     private class Node<T> {
-        T value;
-        Node<T> next;
+        final T value;
+        volatile Node<T> next;
 
         public Node(T val) {
             this.value = val;
@@ -30,7 +30,7 @@ public class LockFreeQueue<T> {
         tail = new AtomicReference<>(placeHolder);
     }
 
-    public synchronized void enqueue(T val) {
+    public void enqueue(T val) {
         Node<T> newNode = new Node<>(val);
         Node<T> prevTail = tail.getAndSet(newNode);
 
@@ -39,7 +39,7 @@ public class LockFreeQueue<T> {
         System.out.println("Item Added:" + val);
     }
 
-    public synchronized T dequeue() {
+    public T dequeue() {
         Node<T> headNode;
         Node<T> nextNode;
         // by this logic the head placeholder will always remain
@@ -54,7 +54,9 @@ public class LockFreeQueue<T> {
         } while (!head.compareAndSet(headNode, nextNode));
 
         T removedElement = nextNode.value;
-        nextNode.value = null;
+
+        // avoid Memory leak
+        nextNode = new Node<>(null);
         System.out.println("Item Removed:" + removedElement);
         return removedElement;
     }

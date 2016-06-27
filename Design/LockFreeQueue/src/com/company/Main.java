@@ -24,7 +24,8 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         ExecutorService service = Executors.newFixedThreadPool(20);
-        LockFreeQueue<Integer> queue = new LockFreeQueue<>();
+        //LockFreeQueue<Integer> queue = new LockFreeQueue<>();
+        LockFreeQueueCAS<Integer> queue = new LockFreeQueueCAS<>();
         try {
             service.submit(() -> queue.dequeue());
             service.submit(() -> queue.enqueue(1));

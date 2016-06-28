@@ -30,7 +30,8 @@ public class Main {
 
     private static void runProducerConsumer() {
         ExecutorService service = Executors.newFixedThreadPool(10);
-        ThreadSafeQueue<Integer> queue = new ThreadSafeQueue<>();
+        //BlockingQueue<Integer> queue = new ThreadSafeQueue<>();
+        BlockingQueue<Integer> queue = new BlockingQueueFromQueue<>(10);
         try {
             for (int i = 0; i < 10; i++) {
                 // Consumer

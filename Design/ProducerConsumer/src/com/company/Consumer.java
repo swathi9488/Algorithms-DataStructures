@@ -6,10 +6,10 @@ package com.company;
 public class Consumer {
     private static int THREAD_DELAY = 1000;
 
-    private ThreadSafeQueue queue;
+    private BlockingQueue queue;
     private int numConsumedPerCall;
 
-    public Consumer(ThreadSafeQueue queue, int numConsumedPerCall) {
+    public Consumer(BlockingQueue queue, int numConsumedPerCall) {
         this.queue = queue;
         this.numConsumedPerCall = numConsumedPerCall;
     }

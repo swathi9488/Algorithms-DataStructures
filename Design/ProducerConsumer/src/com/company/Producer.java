@@ -1,15 +1,17 @@
 package com.company;
 
+import java.util.Queue;
+
 /**
  * Created by swathi on 6/26/16.
  */
 public class Producer {
     private static int THREAD_DELAY = 1000;
 
-    private ThreadSafeQueue queue;
+    private BlockingQueue queue;
     private int numItemsProducedPerCall;
 
-    public Producer(ThreadSafeQueue queue, int numItemsProducedPerCall) {
+    public Producer(BlockingQueue queue, int numItemsProducedPerCall) {
         this.queue = queue;
         this.numItemsProducedPerCall = numItemsProducedPerCall;
     }

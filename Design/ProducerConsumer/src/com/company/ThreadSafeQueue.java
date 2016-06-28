@@ -3,7 +3,7 @@ package com.company;
 /**
  * Created by swathi on 6/26/16.
  */
-public class ThreadSafeQueue<T> {
+public class ThreadSafeQueue<T> implements BlockingQueue<T> {
     private Node<T> head, tail;
     private static int MAX_QUEUE_SIZE = 10;
     int size;

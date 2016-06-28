@@ -34,6 +34,21 @@ public class LockFreeQueue<T> {
         Node<T> newNode = new Node<>(val);
         Node<T> prevTail = tail.getAndSet(newNode);
 
+        /*
+            // when this happens then the queue looks like this PH (head)->PH->1
+            //2->3->4->5(tail)
+            // then when the 2 is added (1 is adready removed) so you think the above structure is orphaned (but its not)
+            // when you remove 1 the structure becomes 1->PH. So really the 1 is never gone! so ultimateely it becomes
+            //(head(val=1))->2->3->4->5(tail)
+            if ((Integer) val == 2) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        */
+
         // prevTail.next = tail not possible as tail is an atomicReference
         prevTail.next = newNode;
         System.out.println("Item Added:" + val);
@@ -55,8 +70,6 @@ public class LockFreeQueue<T> {
 
         T removedElement = nextNode.value;
 
-        // avoid Memory leak
-        nextNode = new Node<>(null);
         System.out.println("Item Removed:" + removedElement);
         return removedElement;
     }

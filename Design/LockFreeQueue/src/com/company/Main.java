@@ -22,7 +22,6 @@ Output:
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
         ExecutorService service = Executors.newFixedThreadPool(20);
         //LockFreeQueue<Integer> queue = new LockFreeQueue<>();
         LockFreeQueueCAS<Integer> queue = new LockFreeQueueCAS<>();

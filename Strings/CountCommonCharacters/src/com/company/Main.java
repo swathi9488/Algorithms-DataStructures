@@ -16,7 +16,7 @@ public class Main {
         int[] map = new int[256];
         int result = 0;
         for (String str : strs) {
-            Set<Character> unique = new HashSet<>();
+            Set<Character> unique = new HashSet<>(256);
             for (int i = 0; i < str.length(); i++) {
                 if (!unique.contains(str.charAt(i))) {
                     unique.add(str.charAt(i));
@@ -36,32 +36,24 @@ public class Main {
     }
 
     private static int countSetIntersection(String[] strs) {
-        int[] map = new int[256];
         int[][] intermediateResult = new int[strs.length][256];
         int result = 0;
 
         for (int i = 0; i < strs.length; i++) {
             for (int j = 0; j < strs[i].length(); j++) {
-                map[strs[i].charAt(j)] += 1;
                 intermediateResult[i][strs[i].charAt(j)] += 1;
             }
         }
 
         for (int i = 0; i < 256; i++) {
-            if (map[i] >= strs.length) {
-                int countPerItem = map[i] / strs.length;
-                int j;
-                for (j = 0; j < strs.length; j++) {
-                    if (intermediateResult[j][(char) i] < countPerItem) {
-                        break;
-                    }
-                }
+            int min = Integer.MAX_VALUE;
+            for (int j = 0; j < strs.length; j++) {
+                min = Math.min(intermediateResult[j][(char) i], min);
+            }
 
-                if (j == strs.length) {
-                    System.out.print((char) i + "\t");
-                    result += countPerItem;
-                }
-
+            if (min != 0) {
+                System.out.print((char) i + "\t");
+                result += min;
             }
         }
 

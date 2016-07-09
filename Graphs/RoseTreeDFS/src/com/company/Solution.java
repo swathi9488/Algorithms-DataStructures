@@ -12,32 +12,19 @@ public class Solution {
         }
 
         Stack<RoseTree> stack = new Stack<>();
-        root.visited = true;
         stack.push(root);
 
         while (!stack.isEmpty()) {
             RoseTree node = stack.peek();
-            int i = 0;
-            int n = node.children.size();
-            if (n == 0) {
+            if ((node.childIdx + 1) == node.children.size()) {
                 stack.pop();
                 System.out.print(node.value + "\t");
             } else {
-                while (n > 0 && i < n && node.children.get(i).visited) {
-                    i++;
-                }
-
-                if (i == n) {
-                    stack.pop();
-                    System.out.print(node.value + "\t");
-                } else {
-                    RoseTree child = node.children.get(i);
-                    child.visited = true;
-                    stack.push(child);
-                }
+                RoseTree child = node.children.get(node.childIdx + 1);
+                node.childIdx += 1;
+                stack.push(child);
             }
         }
-
     }
 
     public void dfsRecursive(RoseTree root) {

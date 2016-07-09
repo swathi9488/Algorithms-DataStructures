@@ -9,11 +9,11 @@ import java.util.List;
 public class RoseTree {
     int value;
     List<RoseTree> children;
-    boolean visited;
+    int childIdx;
 
     public RoseTree(int val) {
         this.value = val;
         children = new ArrayList<>();
-        visited = false;
+        childIdx = -1;
     }
 }

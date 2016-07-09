@@ -19,10 +19,8 @@ public class Main {
         //root = deleteFromBST(root, root.left.left);
         //root = deleteFromBST(root, root.left.left);
 
-        root = deleteNode(root, root);
-        root = deleteNode(root, root.left.left);
-        root = deleteNode(root, root.left.left);
-        root = deleteNode(root, root.left.left);
+        root = deleteNode(root, root.left.right);
+        root = deleteNode(root, root.left);
         System.out.println(root);
     }
 
@@ -36,30 +34,21 @@ public class Main {
         }
         
         TreeNode curr = root;
-        while (curr.left != null && curr.right != null) {
+        TreeNode prev = null;
+        while (curr != null) {
             if (curr.val > target.val) {
+                prev = curr;
                 curr = curr.left;
             } else {
+                prev = curr;
                 curr = curr.right;
             }
         }
 
-        if (curr.val > target.val) {
-            TreeNode prevLeft = curr.left;
-            curr.left = target;
-            if (prevLeft != null && curr.left.val > prevLeft.val) {
-                curr.left.left = prevLeft;
-            } else {
-                curr.left.right = prevLeft;
-            }
+        if (prev.val > target.val) {
+            prev.left = target;
         } else {
-            TreeNode prevRight = curr.right;
-            curr.right = target;
-            if (prevRight != null && curr.right.val > prevRight.val) {
-                curr.right.left = prevRight;
-            } else {
-                curr.right.right = prevRight;
-            }
+            prev.right = target;
         }
 
         return root;

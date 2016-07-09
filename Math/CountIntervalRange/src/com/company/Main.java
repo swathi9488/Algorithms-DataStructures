@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         List<Interval> intervals = new ArrayList<>();
-        intervals.add(new Interval(1, 1));
-        intervals.add(new Interval(5, 5));
-        intervals.add(new Interval(5, 5));
+        intervals.add(new Interval(1, 2));
+        intervals.add(new Interval(2, 5));
+        intervals.add(new Interval(9, 12));
         System.out.println(getRange(intervals));
     }
 
@@ -34,14 +34,14 @@ public class Main {
                 prev.end = Math.max(interval.end, prev.end);
             } else {
                 // corner case when (1, 1), (2, 2)
-                int diff = (prev.end == prev.start)? 1 :(prev.end - prev.start);
+                int diff = prev.end - prev.start + 1;
                 range += diff;
                 prev = interval;
             }
         }
 
         if (prev != null) {
-            int diff = (prev.end == prev.start)? 1 :(prev.end - prev.start);
+            int diff = prev.end - prev.start + 1;
             range += diff;
         }
 

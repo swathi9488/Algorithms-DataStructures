@@ -13,7 +13,7 @@ public class Main {
         }
 
         int[] input1 = new int[] {1, 2, 3, 7 ,9, 10};
-        int i1 = binarySearchMinimumLargestThanTarget(input1, 0, 0, input.length -1,Integer.MAX_VALUE, -1);
+        int i1 = binarySearchMinimumLargestThanTarget(input1, 4, 0, input.length -1);
         if (i1 == -1) {
             System.out.println("Not Found");
         } else {
@@ -65,19 +65,18 @@ public class Main {
         }
     }
 
-    public static int binarySearchMinimumLargestThanTarget(int[] arr, int target, int lb, int ub, int minDiff, int minIdx) {
+    public static int binarySearchMinimumLargestThanTarget(int[] arr, int target, int lb, int ub) {
         if (lb > ub) {
-           return minIdx;
+           return -1;
         } else {
             int mid = (lb+ub)/2;
             if (arr[mid] > target) {
-                if (minDiff > (arr[mid] - target)) {
-                    minDiff = (arr[mid] - target);
-                    minIdx = mid;
+                if (mid == 0 || arr[mid - 1] <= target) {
+                    return mid;
                 }
-                return binarySearchMinimumLargestThanTarget(arr, target, lb, mid - 1, minDiff, minIdx);
+                return binarySearchMinimumLargestThanTarget(arr, target, lb, mid - 1);
             } else {
-                return binarySearchMinimumLargestThanTarget(arr, target, mid+1, ub,  minDiff, minIdx);
+                return binarySearchMinimumLargestThanTarget(arr, target, mid+1, ub);
             }
         }
     }

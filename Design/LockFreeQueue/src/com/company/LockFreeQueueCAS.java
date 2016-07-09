@@ -33,7 +33,6 @@ public class LockFreeQueueCAS<T> {
 
     // Uses a more complex enqueue process
     public boolean enqueue(T val) {
-        //Node<T> newNode = new Node<>(val, null);
         Node<T> newNode = new Node<T>(val, null);
         while (true) {
             Node<T> curTail = tail.get();

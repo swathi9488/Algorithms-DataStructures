@@ -3,7 +3,6 @@ package com.company;
 import java.util.Random;
 
 public class Main {
-    Map<Character, Integer> charFrequencyMap = new Hashmap<>();
 
     public static void main(String[] args) {
 	// write your code here
